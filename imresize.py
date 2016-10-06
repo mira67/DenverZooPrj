@@ -7,8 +7,8 @@ Author: qi liu
 from PIL import Image
 import os, sys
 
-input_dir  = '/home/mirabot/Documents/deeplearning/zoophoto/zoosorted/mixed/'
-output_dir  = '/home/mirabot/Documents/deeplearning/zoophoto/zoosorted/mixed_resize/'
+input_dir  = '/home/mirabot/googledrive/deeplearning/zoophoto/all_sorted/wildlife/'
+output_dir  = '/home/mirabot/googledrive/deeplearning/zoophoto/all_sorted/resized/wildlife/'
 dirs = os.listdir(input_dir)
 
 def resize():
@@ -16,8 +16,9 @@ def resize():
         if os.path.isfile(input_dir+item):
             im = Image.open(input_dir+item)
             f, e = os.path.splitext(input_dir+item)
-            
-            imResize = im.resize((200,200), Image.ANTIALIAS)
-            imResize.save(output_dir + item, 'JPEG', quality=90)
+            #print item
+            imResize = im.resize((64,64), Image.ANTIALIAS)
+            imResize.save(output_dir + item, 'JPEG', quality=100)
 
 resize()
+print "Done!"

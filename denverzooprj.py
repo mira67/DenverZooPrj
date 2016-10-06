@@ -19,7 +19,7 @@ from keras import backend as K
 # image loading
 import os
 from PIL import Image
-import matplotlib.pyplot as plt
+#import matplotlib.pyplot as plt
 import glob
 import re
 import timeit
@@ -27,7 +27,7 @@ import timeit
 # training parameters
 batch_size = 20 #128
 nb_classes = 3 #10
-nb_epoch = 1 #iterations to run, increase to improve accuracy, take much longer time
+nb_epoch = 3 #iterations to run, increase to improve accuracy, take much longer time
 
 # input image dimensions
 img_rows, img_cols = 200, 200
@@ -47,8 +47,8 @@ def numericalSort(value):
     parts[1::2] = map(int, parts[1::2])
     return parts
 
-dpath = '/home/mirabot/Documents/deeplearning/zoophoto/zoosorted/mixed_resize/'
-labelpath = '/home/mirabot/Documents/deeplearning/zoophoto/zoosorted/label.csv'
+dpath = '/home/mirabot/googledrive/deeplearning/zoophoto/zoosorted/mixed_resize/'
+labelpath = '/home/mirabot/googledrive/deeplearning/zoophoto/zoosorted/label.csv'
 
 imagePath = sorted(glob.glob(dpath+'*.JPG'),key=numericalSort)
 im_array = np.array( [np.array(Image.open(imagePath[i]).convert('RGB'), 'f') for i in range(len(imagePath))])
@@ -70,7 +70,7 @@ Y_train = label[train_id]
 X_test = im_array[test_id,:,:,:]
 Y_test = label[test_id]
 
-plt.imshow(im_array[883,:,:,:],cmap="gray")
+#plt.imshow(im_array[883,:,:,:],cmap="gray")
 
 """TO-DO: Random sample training and testing sets with labels, make radom seed consistent
 Then train 1 image to test, see how much time, then train 80% \\of the data sets
@@ -130,7 +130,7 @@ model.compile(loss='sparse_categorical_crossentropy',
               metrics=['accuracy'])
 
 model.fit(X_train, Y_train, batch_size=batch_size, nb_epoch=nb_epoch,
-          verbose=1, validation_data=(X_test, Y_test))
+          verbose=0, validation_data=(X_test, Y_test))
 score = model.evaluate(X_test, Y_test, verbose=0)
 print('Test score:', score[0])
 print('Test accuracy:', score[1])
